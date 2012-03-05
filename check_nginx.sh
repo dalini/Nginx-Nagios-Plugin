@@ -75,6 +75,12 @@ print_help() {
     echo "  -c/--critical)"
     echo "     Sets a critical level for requests per second. Default is:"
 	echo "     off"
+    echo "  -au/--auth-user)"
+    echo "     If your Nginx status page requires basic authentication,"
+    echo "     use this to enter the user name."
+    echo "  -ap/--auth-password)"
+    echo "     If your Nginx status page requires basic authentication,"
+    echo "     use this to enter the password."
     exit $ST_UK
 }
 
@@ -120,6 +126,14 @@ while test -n "$1"; do
             ;;
         --critical|-c)
             critical=$2
+            shift
+            ;;
+        --auth-user|-au)
+            auth_user=$2
+            shift
+            ;;
+        --auth-password|-ap)
+            auth_password=$2
             shift
             ;;
         *)
@@ -180,12 +194,12 @@ check_pid() {
 get_status() {
     if [ "$secure" = 1 ]
     then
-        wget_opts="-O- -q -t 3 -T 3 --no-check-certificate"
+        wget_opts="-O- -q -t 3 -T 3 --no-check-certificate --http-user=${auth_user} --http-password=${auth_password}"
         out1=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
         sleep 1
         out2=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
     else        
-        wget_opts="-O- -q -t 3 -T 3"
+        wget_opts="-O- -q -t 3 -T 3 --http-user=${auth_user} --http-password=${auth_password}"
         out1=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
         sleep 1
         out2=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
