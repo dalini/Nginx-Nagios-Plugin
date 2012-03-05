@@ -15,8 +15,8 @@
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 PROGNAME=`basename $0`
-VERSION="Version 1.1,"
-AUTHOR="2009, Mike Adolphs (http://www.matejunkie.com/)"
+VERSION="Version 1.2,"
+AUTHOR="2012, Wilhelm Murdoch (http://www.thedrunkenepic.com/), original by: 2009, Mike Adolphs (http://www.matejunkie.com/)"
 
 ST_OK=0
 ST_WR=1
